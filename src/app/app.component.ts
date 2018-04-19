@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  title = 'Monaco Editor';
+  editorOptions = {
+    theme: 'vs-dark',
+    language: 'json'
+  };
+  code = 'function x() {\n\tconsole.log("Hello world!");\n}';
 }
