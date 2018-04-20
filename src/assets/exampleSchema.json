@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Example Schema",
+  "description": "This is an example schema",
+  "type": "object",
+  "properties": {
+    "p1": {
+      "type": "number"
+    },
+    "p2": {
+      "type": "boolean"
+    },
+    "p3": {
+      "type": "string"
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/definitions/nodes/blah"
+          }
+        ]
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "p1",
+    "p2",
+    "p3",
+    "nodes"
+  ],
+  "definitions": {
+    "nodes": {
+      "blah": {
+        "type": "object",
+        "properties": {
+          "thing": {
+            "type": "string"
+          },
+          "value": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

@@ -4,4 +4,8 @@
     Welcome to {{ title }}!
   </h1>
 </div>
-<ngx-monaco-editor [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
+<ngx-monaco-editor
+  [options]="editorOptions"
+  [(ngModel)]="editorModel"
+  [model]="editorModel"
+></ngx-monaco-editor>
