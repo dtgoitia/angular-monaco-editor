@@ -11,8 +11,15 @@ export class AppComponent {
   title = 'Monaco Editor';
   editorOptions = {
     // theme: 'vs-dark',
-    theme: 'vs-light',
-    language: 'markdown'
+    theme: 'vs-dark',
+    languages: 'json',
+    // lineHeight: number,
+    // multiCursorModifier: "altKey",
+    minimap: {
+      enabled: false
+    },
+    renderWhitespace: 'all'
+
   };
   editorContent = `{
   "p1": 123,
