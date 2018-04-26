@@ -1,14 +1,59 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { DialogueSchemaService } from './services/dialogue-schema.service';
 
 /* components */
 import { AppComponent } from './app.component';
-import { MonacoEditorModule, NgxMonacoEditorConfig  } from 'ngx-monaco-editor';
+import { ChildComponent } from './components/child.component';
+import { DialogueSchemaComponent } from './components/dialogue-schema.component';
 
+/* Modules */
+import { MonacoEditorModule, NgxMonacoEditorConfig } from 'ngx-monaco-editor';
 
 const monacoConfig: NgxMonacoEditorConfig = {
   onMonacoLoad: () => {
+    function createDependencyProposals() {
+      // returning a static list of proposals, not even looking at the prefix (filtering is done by the Monaco editor),
+      // here you could do a server side lookup
+      return [
+        {
+          label: '"lodash"',
+          kind: monaco.languages.CompletionItemKind.Function,
+          documentation: 'The Lodash library exported as Node.js modules.',
+          insertText: '"lodash": "*"'
+        },
+        {
+          label: '"express"',
+          kind: monaco.languages.CompletionItemKind.Function,
+          documentation: 'Fast, unopinionated, minimalist web framework',
+          insertText: '"express": "*"'
+        },
+        {
+          label: '"mkdirp"',
+          kind: monaco.languages.CompletionItemKind.Function,
+          documentation: 'Recursively mkdir, like <code>mkdir -p</code>',
+          insertText: '"mkdirp": "*"'
+        }
+      ];
+    }
+    monaco.languages.registerCompletionItemProvider('json', {
+      provideCompletionItems: function (model, position) {
+        // find out if we are completing a property in the 'dependencies' object.
+        const textUntilPosition = model.getValueInRange({
+          startLineNumber: 1,
+          startColumn: 1,
+          endLineNumber: position.lineNumber,
+          endColumn: position.column
+        });
+        const match = textUntilPosition.match(/"dependencies"\s*:\s*{\s*("[^"]*"\s*:\s*"[^"]*"\s*,\s*)*("[^"]*)?$/);
+        if (match) {
+          return createDependencyProposals();
+        }
+        return [];
+      }
+    });
     const id = 'foo.json';
     monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
       validate: true,
@@ -70,15 +115,15 @@ const monacoConfig: NgxMonacoEditorConfig = {
 };
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent, ChildComponent, DialogueSchemaComponent],
   imports: [
     BrowserModule,
     FormsModule,
-    MonacoEditorModule.forRoot(monacoConfig)
+    MonacoEditorModule.forRoot(monacoConfig),
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [DialogueSchemaService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
