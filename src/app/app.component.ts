@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NgxEditorModel  } from 'ngx-monaco-editor';
-import { DialogueSchemaComponent } from './components/dialogue-schema.component';
+import { DialogueSchemaComponent } from './components/dialogue-schema/dialogue-schema.component';
 
-import { ChildComponent } from './components/child.component';
+// import { ChildComponent } from './components/child/child.component';
 
 @Component({
   selector: 'app-root',

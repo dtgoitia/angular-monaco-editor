@@ -4,12 +4,7 @@
     Welcome to {{ title }}!
   </h1>
 </div>
-<div>
-  <p>Before app-child:</p>
-  <app-child></app-child>
-  <app-dialogue-schema></app-dialogue-schema>
-  <p>After app-child:</p>
-</div>
+<app-dialogue-schema></app-dialogue-schema>
 <ngx-monaco-editor
   [options]="editorOptions"
   [(ngModel)]="editorModel"

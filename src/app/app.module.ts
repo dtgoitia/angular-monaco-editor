@@ -6,8 +6,8 @@ import { DialogueSchemaService } from './services/dialogue-schema.service';
 
 /* components */
 import { AppComponent } from './app.component';
-import { ChildComponent } from './components/child.component';
-import { DialogueSchemaComponent } from './components/dialogue-schema.component';
+// import { ChildComponent } from './components/child/child.component';
+import { DialogueSchemaComponent } from './components/dialogue-schema/dialogue-schema.component';
 
 /* Modules */
 import { MonacoEditorModule, NgxMonacoEditorConfig } from 'ngx-monaco-editor';
@@ -115,7 +115,7 @@ const monacoConfig: NgxMonacoEditorConfig = {
 };
 
 @NgModule({
-  declarations: [AppComponent, ChildComponent, DialogueSchemaComponent],
+  declarations: [AppComponent, DialogueSchemaComponent],
   imports: [
     BrowserModule,
     FormsModule,

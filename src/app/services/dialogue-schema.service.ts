@@ -13,6 +13,6 @@ export class DialogueSchemaService {
 
   // Uses http.get() to load data from a single API endpoint
   getFoods() {
-    return this.http.get('/api/food');
+    return this.http.get('http://www.mocky.io/v2/59798efd11000082019edb88');
   }
 }
